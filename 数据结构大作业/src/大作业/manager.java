@@ -20,7 +20,7 @@ public class manager {
 						List.select(list_vg, num, su);break;
 			}
 			System.out.println("是否继续？(按q退出,输入任意值继续)");
-			if (read.next()=="q") break;
+			if (read.next()=="q") System.exit(0);;
 			su=Interface.longong_ma1();
 		}
 		

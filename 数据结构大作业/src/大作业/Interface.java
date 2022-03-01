@@ -57,4 +57,12 @@ public class Interface {
 		int num;
 		return num=read.nextInt();
 	}
+	
+	static String random_if() {
+		System.out.println("********");
+		System.out.println("请输入想要随机选项");
+		System.out.println("********");
+		String str;
+		return str=read.next();
+	}
 }

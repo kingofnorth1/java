@@ -1,5 +1,6 @@
 package 大作业;
 import java.lang.*;
+import java.time.LocalDate;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,7 +8,7 @@ public class List extends Object {
 	static Scanner read = new Scanner(System.in);
 	public Node<String> head;
 	String str;
-	int n=0,st=0,i,j,num,sum;
+	int n=0,st=0;
 	
 	public List(){
 		this.head=new Node<String>();
@@ -59,7 +60,7 @@ public class List extends Object {
 	
 	public int[] sort() {						//同时对链表和数组进行冒泡排序,返回数组得到链表改变规律
 		Node<String> tail=null,cur=null;
-		int array[]=new int[20];
+		int array[]=new int[20],j,num,sum;
 		cur=this.head.next;
 		for (Node<String> p=this.head.next;p!=null;p=p.next) {
 			array[st]=st;
@@ -113,7 +114,8 @@ public class List extends Object {
 		for (Node<String> p=this.head.next;p!=null;p=p.next) {
 			i++;
 			if (i==num) {
-				stm = "随机"+i+":"+p.str.toString();
+				LocalDate today = LocalDate.now();
+				stm = today+"随机"+i+":"+p.str.toString();
 				str = "随机结果: "+num+"号"+str+"价格:"+p.str.toString()+"元";
 				System.out.println(str);
 				return stm;
@@ -122,17 +124,17 @@ public class List extends Object {
 		return null;
 	}
 	
-	public Node<String> insert(int i,String x) {		//增加
+	public Node<String> insert(int i,String x) {  //增加
 		if (x==null) return null;
-		Node<String> front=this.head;
+			Node<String> front=this.head;
 		for (int j=0;front.next!=null&&j<i;j++) {
 			front=front.next;
 		}
 		front.next=new Node<String>(x,front.next);
 		return front.next;
 	}
-	
-	public String remove(int i) {						//删除
+		 
+	public String remove(int i) {      //删除
 		Node<String> front=this.head;
 		for (int j=0;front.next!=null && j<i;j++) {
 			front=front.next;
@@ -144,29 +146,25 @@ public class List extends Object {
 		}
 		return null;
 	}
-	
-	public Node<String> change(int i,String x) {		//修改
+		 
+	public Node<String> change(int i,String x) {  //修改
 		if (x==null) return null;
 		Node<String> front=this.head;
 		for (int j=0;front.next!=null&&j<i;j++) {
 			front=front.next;
 		}
-		front.next.str=x;
+		front.str=x;
 		return front.next;
 	}
-	
-	public Node<String> search(String key) {			//查找
-		int i=1,num;
+		 
+	public Node<String> search(String key) {   //查找
+		int i=0,num;
 		Node<String> front=this.head;
-		while (front.next!=null) {
-			front=front.next;
-			num=Integer.parseInt(key);
-			if ((i++)==num) {
-				return front;
-			}
-			else return null;
+		num=Integer.parseInt(key);
+		while ((i++)!=num) {
+			front = front.next;
 		}
-		return null;
+			return front;
 	}
 	
 	static void select(List list,int num,int su) {

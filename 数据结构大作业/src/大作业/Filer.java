@@ -59,20 +59,63 @@ class Filer {
 		if (num==1) file=file_3; 
 		if (num==2) file=file_4; 
 		if (num==3) file=file_5; 
-		if (num==4) file=file_6;
-		try {
-			Reader in=new FileReader(file);
-			BufferedReader bufferRead=new BufferedReader(in);
-			while ((str=bufferRead.readLine())!=null) {
-				str=str.replaceAll(regex, "");
-				list.insert(i++, str);
+		if (num==1 | num==2 | num == 3) {
+			try {
+				Reader in=new FileReader(file);
+				BufferedReader bufferRead=new BufferedReader(in);
+				while ((str=bufferRead.readLine())!=null) {
+					str=str.replaceAll(regex, "");
+					list.insert(i++, str);
+				}
+				bufferRead.close();
+				in.close();
+				return list;
 			}
-			bufferRead.close();
-			in.close();
-			return list;
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}
 		}
-		catch (IOException e) {
-			System.out.println(e.toString());
+		if (num==4) {
+			file=file_6;
+			try {
+				String regex1="\\d{4}-\\d{2}\\-\\d{2}\\D{2}\\d{1}:";
+				Reader in=new FileReader(file);
+				BufferedReader bufferRead=new BufferedReader(in);
+				while ((str=bufferRead.readLine())!=null) {
+					str=str.replaceAll(regex1, "");
+					list.insert(i++, str);
+				}
+				bufferRead.close();
+				in.close();
+				return list;
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}
+		}
+		return null;
+	}
+	public static List reader_file_1(int num) {
+		String regex="\\D{2}\\d{1}:\\D{2}-";
+		List list=new List();
+		if (num==1) file=file_3; 
+		if (num==2) file=file_4; 
+		if (num==3) file=file_5; 
+		if (num==1 | num==2 | num == 3) {
+			try {
+				Reader in=new FileReader(file);
+				BufferedReader bufferRead=new BufferedReader(in);
+				while ((str=bufferRead.readLine())!=null) {
+					str=str.replaceAll(regex, "");
+					list.insert(i++, str);
+				}
+				bufferRead.close();
+				in.close();
+				return list;
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}
 		}
 		return null;
 	}
@@ -84,14 +127,13 @@ class Filer {
 			if (num==2) file=file_4; 
 			if (num==3) file=file_5;
 			try {
-				Writer out=new FileWriter(file);
+				Writer out=new FileWriter(file,true);
 				BufferedWriter bufferWrite=new BufferedWriter(out);
 				while (list.head.next!=null) {
 					String str = null;
 					if (num==1) str="·¹ÌÃ";
 					if (num==2) str="µµ¿Ú";
 					if (num==3) str="²ËÆ·";
-					if (num==4) str="Ëæ»ú";
 					str += (i++)+":"+list.head.next.str.toString();
 					bufferWrite.write(str);
 					bufferWrite.newLine();

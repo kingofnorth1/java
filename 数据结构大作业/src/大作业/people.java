@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class people {
 	static Scanner read = new Scanner(System.in);
 	int num;
-	String str;
+	String str,str1;
 	int array[]=new int[9];
 	List list;
 	List list_ct=Filer.reader_file(1);		//读取返回文件
@@ -23,6 +23,7 @@ public class people {
 					break;
 			case 2:	num=Interface.longong_ma1();
 					sele(num);
+					str1=Interface.random_if();
 					str=list.random_pe(num);   				//写入随机数据
 					Filer.writer_file(list, 4, str);
 					break;
@@ -37,9 +38,9 @@ public class people {
 	}
 	
 	public int[] sort(int n){
-		if (n==1) list=list_ct;
-		if (n==2) list=list_gm;
-		if (n==3) list=list_vg;
+		if (n==1) list=Filer.reader_file_1(1);
+		if (n==2) list=Filer.reader_file_1(2);
+		if (n==3) list=Filer.reader_file_1(3);
 		array=list.sort();
 //		System.out.println(list.toSting(1));
 		return array;
