@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class List extends Object {
 	static Scanner read = new Scanner(System.in);
-	public Node<String> head;
+	static Node<String> head;
 	String str;
 	int n=0,st=0;
 	
@@ -21,18 +21,22 @@ public class List extends Object {
 			case 1:	for (Node<String> p=this.head.next; p!=null;p=p.next) {
 						str += (n++)+"号饭堂价格为:"+p.str.toString()+"元"+(p.next!=null?" , ":"");
 					}
+					n=0;
 					return str;
 			case 2:	for (Node<String> p=this.head.next; p!=null;p=p.next) {
 						str += (n++)+"号档口价格为:"+p.str.toString()+"元"+(p.next!=null?" , ":"");
 					}
+					n=0;
 					return str;
 			case 3:	for (Node<String> p=this.head.next; p!=null;p=p.next) {
 						str += (n++)+"号菜品价格为:"+p.str.toString()+"元"+(p.next!=null?" , ":"");
 					}
+					n=0;
 					return str;	
 			case 4: for (Node<String> p=this.head.next; p!=null;p=p.next) {
-						str += (n++)+"号随机结果为:"+p.str.toString()+"元"+(p.next!=null?" , ":"");
+						str += (n++)+"号随机结果为:"+p.str.toString()+(p.next!=null?" , ":"");
 					}
+					n=0;
 					return str;	
 		}
 		return null;	
@@ -45,14 +49,17 @@ public class List extends Object {
 			case 1:	for (int i=0;i<array.length && p!=null;i++,p=p.next) {
 						str += (array[i]+1)+"号饭堂价格为:"+p.str.toString()+"元"+(p.next!=null?" , ":"");
 					}
+					n=0;
 					return str;
 			case 2:	for (int i=0;i<array.length && p!=null;i++,p=p.next) {
 						str += (array[i]+1)+"号档口价格为:"+p.str.toString()+"元"+(p.next!=null?" , ":"");
 					}
+					n=0;
 					return str;
 			case 3:	for (int i=0;i<array.length && p!=null;i++,p=p.next) {
 						str += (array[i]+1)+"号菜品价格为:"+p.str.toString()+"元"+(p.next!=null?" , ":"");
 					}
+					n=0;
 					return str;
 		}
 		return null;	
@@ -83,6 +90,7 @@ public class List extends Object {
 			tail=cur;
 			cur=this.head.next;
 		}
+		st=0;
 //		while (cur.next!=tail) {
 //			while (cur.next!=tail) {
 //				num=Integer.parseInt(cur.str.toString());
@@ -115,7 +123,7 @@ public class List extends Object {
 			i++;
 			if (i==num) {
 				LocalDate today = LocalDate.now();
-				stm = "随机"+i+":"+p.str.toString();
+				stm = i+"号"+str+"价格"+p.str.toString()+"元";
 				str = "随机结果: "+num+"号"+str+"价格:"+p.str.toString()+"元";
 				System.out.println(str);
 				return stm;
@@ -167,26 +175,26 @@ public class List extends Object {
 			return front;
 	}
 	
-	static void select(List list,int num,int su) {
+	static void select(List gist,int num,int su) {
 		switch(num) {
 		case 1:	Interface.remined();
-				list.insert(read.nextInt(), read.next());		//写入文件
-				System.out.println(list.toSting(su));
-				Filer.writer_file(list,su,null);
+				gist.insert(read.nextInt(), read.next());		//写入文件
+				System.out.println(gist.toSting(su));
+				Filer.writer_file(gist,su,null);
 				break;
 		case 2:	Interface.remined();
-				list.remove(read.nextInt());
-				System.out.println(list.toSting(su));
-				Filer.writer_file(list,su,null);
+				gist.remove(read.nextInt());
+				System.out.println(gist.toSting(su));
+				Filer.writer_file(gist,su,null);
 				break;
 		case 3:	Interface.remined();
-				list.change(read.nextInt(), read.next());
-				System.out.println(list.toSting(su));
-				Filer.writer_file(list,su,null);
+				gist.change(read.nextInt(), read.next());
+				System.out.println(gist.toSting(su));
+				Filer.writer_file(gist,su,null);
 				break;
 		case 4:	Interface.remined();
 				Node<String> nist=new Node<String>();
-				nist=list.search(read.next());
+				nist=gist.search(read.next());
 				System.out.println(nist.ToString(su));
 				break;
 		}

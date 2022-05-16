@@ -12,52 +12,55 @@ class Filer {
 	static Scanner read = new Scanner(System.in);				//写入文件
 	static File file = null;
 	static String str;
-	static int i=0;
 	static File file_1=new File("D:\\eclipse软件\\java文件\\管理员.txt");
 	static File file_2=new File("D:\\eclipse软件\\java文件\\普通人员.txt");		
-	static File file_3=new File("D:\\eclipse软件\\java文件\\饭堂.txt");			//读取文 件
+	static File file_3=new File("D:\\eclipse软件\\java文件\\饭堂.txt");			//读取文件
 	static File file_4=new File("D:\\eclipse软件\\java文件\\档口.txt");
 	static File file_5=new File("D:\\eclipse软件\\java文件\\菜品.txt");
 	static File file_6=new File("D:\\eclipse软件\\java文件\\随机记录.txt");
 	static ResultSet rs;
 	static Statement sql = Connections.doConnections();
 	public static void longinFile(){
-		String str;
-		int sum,sum1;
-		try {
-			Interface.longon();
-			switch(read.nextInt()) {
-				case 1: sum = Interface.checkan();
-						sum1 = Interface.checkid();
-						String str1= "select * from 管理员登录 where 账号='"+sum+"'and 密码='"+sum1+"';";
-						rs = sql.executeQuery(str1);
-						if (rs.next()) {
-							new manager();
-						}
-						else {
-							JOptionPane.showMessageDialog(null,"登录失败","登录失败,重新登录",JOptionPane.WARNING_MESSAGE);
-						}break;
-				case 2: sum = Interface.checkan();
-						sum1 = Interface.checkid();
-						String str2= "select * from 普通用户登录 where 账号='"+sum+"'and 密码='"+sum1+"';";
-						rs = sql.executeQuery(str2);
-						if (rs.next()) {
-							new people();
-						}
-						else {
-							JOptionPane.showMessageDialog(null,"登录失败","登录失败,重新登录",JOptionPane.WARNING_MESSAGE);
-						}break;
+		while (true) {
+			String str;
+			int sum,sum1;
+			try {
+				Interface.longon();
+				switch(read.nextInt()) {
+					case 1: sum = Interface.checkan();
+							sum1 = Interface.checkid();
+							String str1= "select * from 管理员登录 where 账号='"+sum+"'and 密码='"+sum1+"';";
+							rs = sql.executeQuery(str1);
+							if (rs.next()) {
+								new manager();
+							}
+							else {
+								System.out.println("密码错误");
+							}break;
+					case 2: sum = Interface.checkan();
+							sum1 = Interface.checkid();
+							String str2= "select * from 普通用户登录 where 账号='"+sum+"'and 密码='"+sum1+"';";
+							rs = sql.executeQuery(str2);
+							if (rs.next()) {
+								new people();
+							}
+							else {
+								System.out.println("密码错误");
+							}break;
+				}
+			}
+			catch (Exception e){
+				System.out.println(e.toString());
 			}
 		}
-		catch (Exception e){
-			System.out.println(e.toString());
-		}
+		
 	}
 	public static List reader_file(int num) {
 		String regex="\\D{2}\\d{1}:";
 		String regex1="\\d{4}-\\d{2}\\-\\d{2}\\D{2}\\d{1}:";
 		String str2 = null,str1=null;
 		List list=new List();
+		int i=0;
 		if (num==1) str1 = "select * from 饭堂 where 平均价格!='"+str2+"';";
 		if (num==2) str1 = "select * from 档口 where 平均价格!='"+str2+"';";
 		if (num==3) str1 = "select * from 菜品 where 价格!='"+str2+"';";
@@ -67,6 +70,7 @@ class Filer {
 				while (rs.next()) {
 					str=rs.getString(2);
 					list.insert(i++, str);
+//					System.out.println(str1);
 				}
 				return list;
 			}
@@ -96,7 +100,7 @@ class Filer {
 		String str1=null;
 		LocalDate today = LocalDate.now();
 		if (num==1 || num==2 || num==3) {
-			for (Node p=list.head;p!=null;p=p.next) {
+			for (Node p=list.head.next ;p!=null;p=p.next) {
 				i+=1;
 			}
 			try {
@@ -122,10 +126,10 @@ class Filer {
 				while (rs.next()) {
 					num3+=1;
 				}
-				System.out.println(num3);
+//				System.out.println(num3);
 			}
-			catch (SQLException e) {
-				System.out.println(e.toString());
+			catch (Exception e) {
+				num3=1;
 			}
 			try {
 				String str = stm;
